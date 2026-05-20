@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ecos da Serra | Arquivo de Campanha</title>
+  <style>
+    :root {
+      --bg: #101111;
+      --panel: #171918;
+      --panel-2: #20231f;
+      --paper: #d8ccb0;
+      --paper-dark: #b7a985;
+      --ink: #e9e1ce;
+      --muted: #aaa18e;
+      --line: rgba(216, 204, 176, .18);
+      --accent: #c4473b;
+      --accent-2: #d7b46a;
+      --green: #6c8a68;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .35);
+      --sidebar: 294px;
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(196, 71, 59, .13), transparent 28rem),
+        radial-gradient(circle at 82% 8%, rgba(215, 180, 106, .08), transparent 30rem),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px),
+        var(--bg);
+      background-size: auto, auto, 34px 34px, 34px 34px, auto;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025), rgba(255,255,255,0) 24%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.025), rgba(255,255,255,.025) 1px, transparent 1px, transparent 4px);
+      mix-blend-mode: overlay;
+      opacity: .34;
+      z-index: 10;
+    }
+
+    a { color: inherit; }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar);
+      padding: 24px 20px;
+      border-right: 1px solid var(--line);
+      background: rgba(18, 19, 18, .94);
+      box-shadow: 18px 0 60px rgba(0,0,0,.22);
+      overflow-y: auto;
+      z-index: 20;
+    }
+
+    .case-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-2);
+      font: 700 12px/1.2 "Courier New", monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .case-tag::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--accent);
+      background: rgba(196,71,59,.28);
+    }
+
+    .brand {
+      margin: 14px 0 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font: 13px/1.45 "Courier New", monospace;
+    }
+
+    .search {
+      width: 100%;
+      margin: 0 0 16px;
+      padding: 12px 13px;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #0d0f0e;
+      font: 13px/1 "Courier New", monospace;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: rgba(215, 180, 106, .55);
+      box-shadow: 0 0 0 3px rgba(215, 180, 106, .1);
+    }
+
+    nav {
+      display: grid;
+      gap: 6px;
+    }
+
+    nav a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 38px;
+      padding: 9px 11px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font: 12px/1.2 "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--ink);
+      background: rgba(216, 204, 176, .07);
+      border-color: var(--line);
+    }
+
+    .sidebar-footer {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font: 12px/1.5 "Courier New", monospace;
+    }
+
+    main {
+      margin-left: var(--sidebar);
+      min-height: 100vh;
+      padding: 30px min(5vw, 58px) 70px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(320px, .94fr);
+      gap: 28px;
+      align-items: stretch;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .stamp {
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      color: var(--accent);
+      border: 2px solid rgba(196,71,59,.72);
+      transform: rotate(-2deg);
+      font: 800 15px/1 "Courier New", monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(24px, 4vw, 54px);
+      line-height: .84;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .case-board {
+      position: relative;
+      min-height: 390px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(216,204,176,.08), transparent 42%),
+        #151715;
+      box-shadow: var(--shadow);
+    }
+
+    .case-board::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(216,204,176,.16);
+      background:
+        linear-gradient(30deg, transparent 48%, rgba(196,71,59,.42) 49%, rgba(196,71,59,.42) 50%, transparent 51%),
+        linear-gradient(-18deg, transparent 46%, rgba(215,180,106,.34) 47%, rgba(215,180,106,.34) 48%, transparent 49%);
+    }
+
+    .photo, .note, .evidence {
+      position: absolute;
+      border: 1px solid rgba(32, 24, 17, .28);
+      box-shadow: 0 14px 28px rgba(0,0,0,.3);
+    }
+
+    .photo {
+      width: 42%;
+      aspect-ratio: 4 / 5;
+      left: 8%;
+      top: 10%;
+      background:
+        radial-gradient(circle at 48% 36%, rgba(233,225,206,.5) 0 10%, transparent 11%),
+        linear-gradient(180deg, rgba(233,225,206,.58), rgba(108,138,104,.2)),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,.08) 2px, transparent 2px, transparent 5px),
+        #78725e;
+      border: 10px solid var(--paper);
+      transform: rotate(-5deg);
+    }
+
+    .photo::after {
+      content: "IGREJA / NEBLINA";
+      position: absolute;
+      left: -10px;
+      right: -10px;
+      bottom: -34px;
+      padding-top: 8px;
+      color: #241e18;
+      text-align: center;
+      font: 700 11px/1 "Courier New", monospace;
+      background: var(--paper);
+    }
+
+    .note {
+      width: 38%;
+      right: 8%;
+      top: 16%;
+      padding: 18px;
+      color: #211a14;
+      background: var(--paper);
+      transform: rotate(4deg);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .evidence {
+      left: 18%;
+      right: 12%;
+      bottom: 12%;
+      padding: 14px 16px;
+      color: #1b1714;
+      background: #c9b88f;
+      transform: rotate(1deg);
+      font: 700 12px/1.5 "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    section {
+      scroll-margin-top: 28px;
+      padding: 38px 0 10px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(29px, 4vw, 48px);
+      line-height: 1;
+    }
+
+    .section-head span {
+      color: var(--muted);
+      font: 12px/1.4 "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      text-align: right;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      grid-column: span 4;
+      position: relative;
+      min-width: 0;
+      min-height: 172px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(216,204,176,.055), rgba(216,204,176,.02)),
+        var(--panel);
+      box-shadow: 0 12px 34px rgba(0,0,0,.18);
+    }
+
+    .card.wide { grid-column: span 8; }
+    .card.full { grid-column: 1 / -1; }
+    .card.half { grid-column: span 6; }
+
+    .card::before {
+      content: attr(data-code);
+      display: block;
+      margin-bottom: 13px;
+      color: var(--accent-2);
+      font: 700 11px/1 "Courier New", monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 23px;
+      line-height: 1.05;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .card p { margin: 0; }
+    .card ul { margin: 0; padding-left: 18px; }
+    .card li + li { margin-top: 7px; }
+
+    .label-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 5px 8px;
+      border: 1px solid rgba(216,204,176,.18);
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(216,204,176,.06);
+      font: 11px/1 "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .redacted {
+      display: inline-block;
+      min-width: 118px;
+      height: .85em;
+      vertical-align: -.08em;
+      background: #0a0a0a;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+
+    .dossier {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .portrait {
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(216,204,176,.78) 0 18%, transparent 19%),
+        radial-gradient(ellipse at 50% 78%, rgba(216,204,176,.48) 0 33%, transparent 34%),
+        linear-gradient(135deg, rgba(196,71,59,.34), rgba(108,138,104,.3)),
+        #22251f;
+      filter: sepia(.24) contrast(.96);
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding-left: 24px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      bottom: 6px;
+      width: 1px;
+      background: rgba(215,180,106,.42);
+    }
+
+    .event {
+      position: relative;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(216,204,176,.045);
+    }
+
+    .event::before {
+      content: "";
+      position: absolute;
+      left: -23px;
+      top: 19px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(196,71,59,.12);
+    }
+
+    .event strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent-2);
+      font: 700 12px/1 "Courier New", monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .radio {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid rgba(215,180,106,.24);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.22), transparent),
+        repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(215,180,106,.08) 11px, transparent 12px),
+        #181a17;
+    }
+
+    .frequency {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--accent-2);
+      font: 700 14px/1.4 "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .meter {
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background:
+        linear-gradient(90deg, transparent 0 8%, rgba(196,71,59,.52) 8% 9%, transparent 9% 15%, rgba(215,180,106,.45) 15% 16%, transparent 16%),
+        repeating-linear-gradient(90deg, rgba(216,204,176,.13), rgba(216,204,176,.13) 1px, transparent 1px, transparent 18px);
+    }
+
+    .editable {
+      display: block;
+      width: 100%;
+      min-height: 142px;
+      margin-top: 12px;
+      padding: 13px;
+      resize: vertical;
+      color: var(--ink);
+      border: 1px dashed rgba(216,204,176,.26);
+      border-radius: 6px;
+      background: rgba(0,0,0,.17);
+      font: 14px/1.45 "Courier New", monospace;
+      outline: none;
+    }
+
+    .editable:focus {
+      border-color: rgba(215,180,106,.56);
+      box-shadow: 0 0 0 3px rgba(215,180,106,.08);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      min-height: 38px;
+      padding: 9px 12px;
+      cursor: pointer;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(216,204,176,.07);
+      font: 700 12px/1 "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    button:hover { border-color: rgba(215,180,106,.5); }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 980px) {
+      :root { --sidebar: 100%; }
+      .sidebar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        max-height: 70vh;
+      }
+      main {
+        margin-left: 0;
+        padding: 24px 18px 48px;
+      }
+      .hero { grid-template-columns: 1fr; }
+      .case-board { min-height: 330px; }
+      .card, .card.wide, .card.half { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 620px) {
+      .section-head {
+        display: grid;
+        align-items: start;
+      }
+      .section-head span { text-align: left; }
+      .dossier { grid-template-columns: 64px 1fr; }
+      .hero h2 { font-size: 48px; }
+      .photo { width: 46%; }
+      .note { width: 46%; padding: 12px; font-size: 13px; }
+      .evidence { left: 8%; right: 8%; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="case-tag">Arquivo investigativo</div>
+    <div class="brand">
+      <h1>Ecos da Serra</h1>
+      <p>Dossiê local de São Sebastião da Serra. Tudo neste arquivo roda offline e salva notas no próprio navegador.</p>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Buscar no arquivo...">
+    <nav id="menu" aria-label="Seções do arquivo">
+      <a href="#visao-geral">Visão Geral <span>01</span></a>
+      <a href="#cidade">Cidade <span>02</span></a>
+      <a href="#personagens">Personagens <span>03</span></a>
+      <a href="#npcs">NPCs <span>04</span></a>
+      <a href="#locais">Locais <span>05</span></a>
+      <a href="#episodios">Episódios <span>06</span></a>
+      <a href="#pistas">Pistas <span>07</span></a>
+      <a href="#linha-do-tempo">Linha do Tempo <span>08</span></a>
+      <a href="#radio-local">Rádio Local <span>09</span></a>
+      <a href="#entidade">Entidade <span>10</span></a>
+      <a href="#dr-francisco">Arquivos do Dr. Francisco <span>11</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      Status: caso aberto<br>
+      Classificação: confidencial<br>
+      Responsável: mestre da campanha
+    </div>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="stamp">Provisório / sob investigação</div>
+        <h2>Campanha Ecos da Serra</h2>
+        <p>Use este painel como arquivo de mesa para Ecos da Serra: registre suspeitos, episódios, transmissões de rádio, pistas encontradas e documentos do Dr. Francisco conforme a campanha revelar o que há sob a neblina.</p>
+      </div>
+      <div class="case-board" aria-label="Painel visual de investigação">
+        <div class="photo"></div>
+        <div class="note">"As águas curam. A serra acolhe." A frase aparece em folhetos turísticos, placas antigas e relatos que ninguém quer assinar.</div>
+        <div class="evidence">Mapa da serra / prontuário rasurado / recorte da Gazeta / amostra de água termal</div>
+      </div>
+    </header>
+
+    <section id="visao-geral" data-section>
+      <div class="section-head">
+        <h2>Visão Geral</h2>
+        <span>Resumo do caso</span>
+      </div>
+      <div class="grid">
+        <article class="card wide" data-code="Caso 000">
+          <h3>Premissa</h3>
+          <p>São Sebastião da Serra é uma cidade turística nas montanhas mais altas de Santa Catarina, cercada por araucárias, vales, paredões rochosos, águas termais e estradas perigosas. Bonita de longe, cansada de perto, ela cresceu sobre mineração, turismo, influência eslava e tragédias enterradas.</p>
+          <div class="label-row">
+            <span class="label">Mistério serrano</span>
+            <span class="label">Horror investigativo</span>
+            <span class="label">Cidade viva</span>
+          </div>
+        </article>
+        <article class="card" data-code="Tom">
+          <h3>Clima</h3>
+          <p>Arquivo policial, decadência turística, famílias poderosas, crime organizado, culpa coletiva e fenômenos que parecem obedecer à memória da serra.</p>
+        </article>
+        <article class="card full" data-code="Notas rápidas">
+          <h3>Anotações da mesa</h3>
+          <p>Espaço livre para ideias, regras da mesa, nomes improvisados e perguntas ainda sem resposta.</p>
+          <textarea class="editable" data-save="notas-gerais" placeholder="Digite aqui suas notas gerais..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="cidade" data-section>
+      <div class="section-head">
+        <h2>Cidade</h2>
+        <span>Contexto, rumores e conflitos</span>
+      </div>
+      <div class="grid">
+        <article class="card half" data-code="Município">
+          <h3>São Sebastião da Serra</h3>
+          <ul>
+            <li>Cidade turística com cerca de 25 mil habitantes, acima de mil metros de altitude, isolada pelo frio, pela neblina e pelas estradas da serra sul brasileira.</li>
+            <li>Famosa por águas termais, festivais culturais, vinho, mineração, arquitetura serrana e influência ucraniana, polonesa, alemã e italiana.</li>
+            <li>Por trás da vitrine acolhedora: pobreza, drogas, violência, corrupção, desaparecimentos e tragédias abafadas há décadas.</li>
+          </ul>
+        </article>
+        <article class="card half" data-code="Tensões">
+          <h3>Conflitos locais</h3>
+          <ul>
+            <li>Indústrias Vysoka S.A. controlam termas, mineração, hotéis, mídia, transporte, fábricas e parte da infraestrutura.</li>
+            <li>A família Czernik rivaliza com os Vysoka, mas mantém cordialidade pública em festivais e eventos turísticos.</li>
+            <li>A família Pavlovich opera postos, apostas, motéis, tráfico, segurança clandestina e a logística suja da região.</li>
+          </ul>
+        </article>
+        <article class="card half" data-code="História">
+          <h3>Fundação e silêncio</h3>
+          <p>As nascentes termais eram consideradas sagradas por grupos indígenas locais antes da colonização. O território foi tomado com violência, aldeias queimadas, execuções e corpos enterrados perto das minas. A cidade cresceu sobre águas termais, madeira, agricultura, mineração e silêncio.</p>
+        </article>
+        <article class="card half" data-code="Sensação">
+          <h3>Nostalgia permanente</h3>
+          <p>Tudo parece úmido, antigo, frio e preso no tempo. À noite, a neblina cobre ruas inteiras, o som ecoa pelas montanhas e até quem vai embora sente que a serra continua chamando.</p>
+        </article>
+        <article class="card full" data-code="Bairros">
+          <h3>Bairros principais</h3>
+          <ul>
+            <li><strong>Vale Orlowski:</strong> centro histórico e turístico, praça principal, Catedral Ortodoxa Ucraniana, hotéis, restaurantes e comércio antigo.</li>
+            <li><strong>Bairro Vysoka:</strong> área rica, turística e bonita, com resorts, spas, termas, condomínios e hotéis luxuosos.</li>
+            <li><strong>Bairro dos Cedros:</strong> classe média, mercados, bares, lojas, residências melhores e a delegacia principal.</li>
+            <li><strong>Colina Veleski:</strong> bairro antigo e periférico, ruas estreitas, subidas, casas velhas, violência, iluminação precária e neblina intensa.</li>
+            <li><strong>Vila Operária / Tarnów:</strong> distrito industrial, serrarias, galpões, fábricas abandonadas, mineração, caminhões, fumaça e ferrugem.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="personagens" data-section>
+      <div class="section-head">
+        <h2>Personagens</h2>
+        <span>Protagonistas da investigação</span>
+      </div>
+      <div class="grid">
+        <article class="card half" data-code="PJ 01">
+          <div class="dossier">
+            <div class="portrait"></div>
+            <div>
+              <h3>Investigador visitante</h3>
+              <p>Chega à cidade por trabalho, luto, herança ou curiosidade profissional. Carrega um vínculo com o primeiro desaparecimento.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card half" data-code="PJ 02">
+          <div class="dossier">
+            <div class="portrait"></div>
+            <div>
+              <h3>Morador que voltou</h3>
+              <p>Conhece atalhos, sobrenomes e pecados velhos. Sabe que a cidade mente, mas talvez também esteja mentindo para si.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card full" data-code="Fichas">
+          <h3>Lista de personagens dos jogadores</h3>
+          <textarea class="editable" data-save="personagens" placeholder="Nome, conceito, vínculo com a cidade, segredo, medo, objetivo..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="npcs" data-section>
+      <div class="section-head">
+        <h2>NPCs</h2>
+        <span>Suspeitos, aliados e testemunhas</span>
+      </div>
+      <div class="grid">
+        <article class="card" data-code="Polícia">
+          <h3>Aleksander Kowalczyk</h3>
+          <p>Delegado regional, 54 anos. Frio, inteligente e extremamente cansado. Ex-policial de Florianópolis transferido para a serra, bebe escondido e sabe que muita coisa na cidade não faz sentido.</p>
+        </article>
+        <article class="card" data-code="Polícia">
+          <h3>Helena Veleski</h3>
+          <p>Inspetora, 38 anos. Observadora, inteligente, nascida na Colina Veleski e com pouca paciência para corrupção. É vista como difícil e vive sobrecarregada.</p>
+        </article>
+        <article class="card" data-code="Polícia">
+          <h3>Raul Mendes</h3>
+          <p>Sargento, 46 anos. Veterano de calma absoluta. Parece saber mais do que fala e costuma chegar antes das viaturas em cenas estranhas.</p>
+        </article>
+        <article class="card" data-code="Polícia">
+          <h3>Murilo Antunes</h3>
+          <p>Cabo, 29 anos. Impulsivo, às vezes violento, cresceu na Vila Operária e conhece os Pavlovich desde criança.</p>
+        </article>
+        <article class="card" data-code="Polícia">
+          <h3>Bianca Pavelski</h3>
+          <p>Soldado, 24 anos. Jovem, ambiciosa, fascinada por crimes violentos e com mais medo da cidade do que admite.</p>
+        </article>
+        <article class="card" data-code="Justiça">
+          <h3>Viktor Czernik</h3>
+          <p>Juiz, 61 anos. Educado, conservador, ligado à igreja e de imagem impecável. Protege interesses antigos quando escândalos ameaçam a reputação da serra.</p>
+        </article>
+        <article class="card" data-code="Justiça">
+          <h3>Elisa Volkovycz</h3>
+          <p>Promotora regional, 42 anos. Brilhante, especialista em crimes financeiros, reputação impecável e ligação com os Vysoka.</p>
+        </article>
+        <article class="card" data-code="Prefeitura">
+          <h3>Otávio Czernik</h3>
+          <p>Prefeito, 58 anos. Carismático, figura pública fortíssima e presença constante em festivais. Fará quase tudo para preservar a imagem turística da cidade.</p>
+        </article>
+        <article class="card" data-code="Igreja">
+          <h3>Padre Mykhailo Romanenko</h3>
+          <p>Padre principal da Matriz Ortodoxa, 67 anos. Figura quase mítica, fala português com sotaque, é muito respeitado e parece cansado, assustado e velho demais.</p>
+        </article>
+        <article class="card" data-code="Igreja">
+          <h3>Padres dos bairros</h3>
+          <p>Augusto Vieira, 44 anos, atua no Bairro dos Cedros e faz trabalho social. Estevan Bortnik, 51 anos, é elegante, influente e próximo da elite do Bairro Vysoka.</p>
+        </article>
+        <article class="card" data-code="Bombeiros">
+          <h3>Davi Meneslau</h3>
+          <p>Capitão dos bombeiros, 57 anos. Trabalha há 35 anos na cidade, conhece cada estrada da serra e acredita que algumas áreas simplesmente não são normais.</p>
+        </article>
+        <article class="card" data-code="Bombeiros">
+          <h3>Equipe de resgate</h3>
+          <p>Tiago Rutkowski é querido e supersticioso. Lara Mendes é paramédica fria em emergências e sofre de insônia. João “Joca” Ferreira sobreviveu a um incêndio estranho anos atrás.</p>
+        </article>
+        <article class="card" data-code="Imprensa">
+          <h3>Renato Vysoka</h3>
+          <p>Dono do Jornal da Serra, 49 anos. Primo distante do prefeito, controla a narrativa pública e opera com instinto político aguçado.</p>
+        </article>
+        <article class="card" data-code="Imprensa">
+          <h3>Gazeta da Serra</h3>
+          <p>Celso Bragança, 55 anos, é dono sensacionalista e alcoólatra funcional. Nina Duarte investiga desaparecimentos. Edgar Leme dorme pouco e pesquisa acidentes antigos.</p>
+        </article>
+        <article class="card" data-code="Rádio">
+          <h3>Boris Vysoka</h3>
+          <p>Patriarca Vysoka e voz histórica da Rádio Serrana. A cidade inteira conhece seu timbre, mesmo quando preferia não ouvir.</p>
+        </article>
+        <article class="card" data-code="Famílias">
+          <h3>Menislauk</h3>
+          <p>Família da funerária tradicional. Anatol e Sofia lideram filhos que cuidam de corpos, documentação, transporte, restauração e velórios. Não parecem malignos, só acostumados demais com a morte.</p>
+        </article>
+        <article class="card" data-code="Famílias">
+          <h3>Pavlovich</h3>
+          <p>Sergei Pavlovich, 63 anos, é extremamente perigoso e educado. Mikhail cuida dos negócios, Irina das finanças e Denis da segurança e violência.</p>
+        </article>
+        <article class="card" data-code="Bares">
+          <h3>Vida noturna</h3>
+          <p>Liam O’Connor comanda o Stannis. Marcelo “Marreco” Alves, ex-músico underground, é dono do Porão Rock. Patrícia Valente administra o 50’s Pub.</p>
+        </article>
+        <article class="card full" data-code="Elenco aberto">
+          <h3>Adicionar NPCs</h3>
+          <textarea class="editable" data-save="npcs" placeholder="Nome, função, segredo, pista que pode revelar, atitude inicial..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="locais" data-section>
+      <div class="section-head">
+        <h2>Locais</h2>
+        <span>Mapa de interesse</span>
+      </div>
+      <div class="grid">
+        <article class="card" data-code="L-01">
+          <h3>Catedral Ortodoxa Ucraniana</h3>
+          <p>Marco do Vale Orlowski. A primeira missa é realizada em ucraniano, e a igreja concentra prestígio, tradição e silêncios antigos.</p>
+        </article>
+        <article class="card" data-code="L-02">
+          <h3>Hospital Santa Dimitrya</h3>
+          <p>Hospital mais antigo da cidade, patrocinado pelos Vysoka. Um lugar onde caridade, influência política e registros médicos se misturam.</p>
+        </article>
+        <article class="card" data-code="L-03">
+          <h3>Mina Serrana</h3>
+          <p>Principal complexo de mineração. Operações intensas, caminhões, gases, metais, pedras de exportação e histórias que descem mais fundo do que deviam.</p>
+        </article>
+        <article class="card" data-code="L-04">
+          <h3>Represa Vysoka</h3>
+          <p>Reservatório importante e parte da infraestrutura energética. Um ponto estratégico demais para ser apenas paisagem.</p>
+        </article>
+        <article class="card" data-code="L-05">
+          <h3>Funerária Menislauk</h3>
+          <p>Responsável pelos mortos da cidade há mais de cem anos. A família inteira trabalha ali e conhece melhor do que ninguém o ritmo das tragédias locais.</p>
+        </article>
+        <article class="card" data-code="L-06">
+          <h3>Delegacia Regional</h3>
+          <p>Localizada no Bairro dos Cedros. Cerca de vinte policiais, dez viaturas e um delegado para uma cidade que sempre tem mais ocorrência do que registro.</p>
+        </article>
+        <article class="card" data-code="Natureza">
+          <h3>Pico do Javali</h3>
+          <p>Chapada acima das nuvens, famosa por trilhas e acampamentos. A vista é turística; o isolamento, nem tanto.</p>
+        </article>
+        <article class="card" data-code="Natureza">
+          <h3>Trilha das Cachoeiras</h3>
+          <p>Percurso longo entre cachoeiras e nascentes da serra. As águas são parte do cartão-postal e da memória espiritual do lugar.</p>
+        </article>
+        <article class="card" data-code="Noite">
+          <h3>Porão Rock</h3>
+          <p>Bar underground no porão de uma igreja abandonada. Ponto de bandas locais, jovens alternativos, artistas e usuários de drogas.</p>
+        </article>
+        <article class="card wide" data-code="Mapa livre">
+          <h3>Locais adicionais</h3>
+          <textarea class="editable" data-save="locais" placeholder="Casas, estradas, trilhas, capelas, comércios, ruínas, pontos de encontro..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="episodios" data-section>
+      <div class="section-head">
+        <h2>Episódios</h2>
+        <span>Estrutura de sessões</span>
+      </div>
+      <div class="grid">
+        <article class="card" data-code="EP 01">
+          <h3>A transmissão</h3>
+          <p>A rádio anuncia três mortes futuras. Uma delas acontece antes do amanhecer.</p>
+        </article>
+        <article class="card" data-code="EP 02">
+          <h3>O arquivo paroquial</h3>
+          <p>Os personagens descobrem que famílias inteiras foram removidas dos registros civis.</p>
+        </article>
+        <article class="card" data-code="EP 03">
+          <h3>A estrada fechada</h3>
+          <p>A neblina isola a cidade. A serra devolve objetos que os moradores juram ter enterrado.</p>
+        </article>
+        <article class="card full" data-code="Planejamento">
+          <h3>Próximas sessões</h3>
+          <textarea class="editable" data-save="episodios" placeholder="Cena de abertura, revelações, conflitos, final de sessão, ganchos..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="pistas" data-section>
+      <div class="section-head">
+        <h2>Pistas</h2>
+        <span>O que foi encontrado</span>
+      </div>
+      <div class="grid">
+        <article class="card" data-code="P-01">
+          <h3>Fita cassete</h3>
+          <p>Contém chiado, um coral infantil e a frase: “o santo não protegeu a porta certa”.</p>
+        </article>
+        <article class="card" data-code="P-02">
+          <h3>Registro adulterado</h3>
+          <p>Uma certidão de óbito tem duas datas diferentes, uma escrita por cima da outra.</p>
+        </article>
+        <article class="card" data-code="P-03">
+          <h3>Amostra de cinza</h3>
+          <p>Cheira a vela, mas contém fragmentos de tecido hospitalar.</p>
+        </article>
+        <article class="card full" data-code="Quadro de pistas">
+          <h3>Pistas da campanha</h3>
+          <textarea class="editable" data-save="pistas" placeholder="Pista, onde foi encontrada, quem sabe disso, qual conclusão ela sugere..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="linha-do-tempo" data-section>
+      <div class="section-head">
+        <h2>Linha do Tempo</h2>
+        <span>Antes e durante a campanha</span>
+      </div>
+      <div class="grid">
+        <article class="card full" data-code="Cronologia">
+          <div class="timeline">
+            <div class="event">
+              <strong>Antes da colonização</strong>
+              <p>Grupos indígenas locais consideram as nascentes termais áreas sagradas de cura e conexão espiritual.</p>
+            </div>
+            <div class="event">
+              <strong>Final do século XIX</strong>
+              <p>Colonizadores chegam atraídos pelas águas minerais e pelas riquezas subterrâneas. O território é tomado com violência.</p>
+            </div>
+            <div class="event">
+              <strong>Décadas seguintes</strong>
+              <p>Imigrantes ucranianos, poloneses, alemães e italianos consolidam tradições religiosas, arquitetura europeia e influência eslava.</p>
+            </div>
+            <div class="event">
+              <strong>Presente</strong>
+              <p>O turismo, a mineração e as famílias tradicionais sustentam uma cidade onde ciclos de violência e desaparecimento continuam retornando.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card full" data-code="Eventos">
+          <h3>Atualizar cronologia</h3>
+          <textarea class="editable" data-save="linha-do-tempo" placeholder="Ano/data, evento, fonte, consequência..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="radio-local" data-section>
+      <div class="section-head">
+        <h2>Rádio Local</h2>
+        <span>Transmissões e interferências</span>
+      </div>
+      <div class="grid">
+        <article class="card full" data-code="Serra AM">
+          <div class="radio">
+            <div class="frequency">
+              <span>Rádio Serrana</span>
+              <span>Grupo Vysoka</span>
+            </div>
+            <div class="meter" aria-hidden="true"></div>
+            <p>Rádio tradicional ligada ao grupo Vysoka, marcada pela voz histórica de Boris Vysoka. Ao lado dela, a cidade também escuta a Rádio Mania da Serra, voltada para música alternativa, e a Rádio Serra Nossa, popular e sensacionalista.</p>
+          </div>
+        </article>
+        <article class="card full" data-code="Transcrições">
+          <h3>Mensagens captadas</h3>
+          <textarea class="editable" data-save="radio" placeholder="Horário, trecho da transmissão, quem ouviu, possível significado..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="entidade" data-section>
+      <div class="section-head">
+        <h2>Entidade</h2>
+        <span>Hipóteses sobre o fenômeno</span>
+      </div>
+      <div class="grid">
+        <article class="card wide" data-code="Designação">
+          <h3>A coisa sob a cidade</h3>
+          <p>A entidade não é fantasma, demônio nem serial killer. É um fenômeno ligado ao território, à memória, à culpa humana e às tragédias enterradas sob São Sebastião da Serra.</p>
+        </article>
+        <article class="card" data-code="Padrões">
+          <h3>Sinais</h3>
+          <ul>
+            <li>Figuras observando pela neblina.</li>
+            <li>Parentes mortos e vultos nas janelas.</li>
+            <li>Lapsos de memória, paranoia e insônia.</li>
+            <li>Violência, compulsões e deterioração psicológica.</li>
+          </ul>
+        </article>
+        <article class="card full" data-code="Regras do horror">
+          <h3>Padrão da entidade</h3>
+          <p>Ela caça pessoas emocionalmente quebradas, especialmente as consumidas por culpa ou traumas profundos. A cada ciclo, desaparecimentos, acidentes brutais e suicídios aumentam. Quando aparece fisicamente, alguém geralmente morre. Ela não pode ser destruída, apenas afastada temporariamente por um objeto sobrevivente do massacre original.</p>
+        </article>
+        <article class="card full" data-code="Teorias">
+          <h3>Teorias e regras da entidade</h3>
+          <textarea class="editable" data-save="entidade" placeholder="O que ela quer, como age, limites, sinais, formas de resistência, preço das respostas..."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section id="dr-francisco" data-section>
+      <div class="section-head">
+        <h2>Arquivos do Dr. Francisco</h2>
+        <span>Prontuários, fitas e fragmentos</span>
+      </div>
+      <div class="grid">
+        <article class="card half" data-code="Arquivo F-12">
+          <h3>Prontuário rasurado</h3>
+          <p>Paciente: <span class="redacted"></span>. Diagnóstico: “memória transmissível por som”. Observação: “não deixar ouvir os sinos”.</p>
+        </article>
+        <article class="card half" data-code="Arquivo F-19">
+          <h3>Carta incompleta</h3>
+          <p>“Se alguém encontrar estes documentos, queime a sala de gravação antes de abrir a porta do subsolo.”</p>
+        </article>
+        <article class="card full" data-code="Documentos">
+          <h3>Arquivos encontrados</h3>
+          <textarea class="editable" data-save="dr-francisco" placeholder="Documento, data, conteúdo, relação com NPCs, pista escondida..."></textarea>
+          <div class="toolbar">
+            <button type="button" id="exportNotes">Exportar notas</button>
+            <button type="button" id="clearNotes">Limpar notas salvas</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const storagePrefix = "sao-sebastiao-serra:";
+    const textareas = document.querySelectorAll("[data-save]");
+    const search = document.getElementById("search");
+    const sections = [...document.querySelectorAll("[data-section]")];
+    const menuLinks = [...document.querySelectorAll("#menu a")];
+
+    textareas.forEach((field) => {
+      const key = storagePrefix + field.dataset.save;
+      field.value = localStorage.getItem(key) || "";
+      field.addEventListener("input", () => localStorage.setItem(key, field.value));
+    });
+
+    search.addEventListener("input", () => {
+      const term = search.value.trim().toLowerCase();
+      document.querySelectorAll(".card").forEach((card) => {
+        const found = card.innerText.toLowerCase().includes(term);
+        card.classList.toggle("hidden", term && !found);
+      });
+      sections.forEach((section) => {
+        const visibleCards = section.querySelectorAll(".card:not(.hidden)").length;
+        section.classList.toggle("hidden", term && visibleCards === 0);
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        menuLinks.forEach((link) => {
+          link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+        });
+      });
+    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
+
+    sections.forEach((section) => observer.observe(section));
+
+    document.getElementById("exportNotes").addEventListener("click", () => {
+      const notes = [...textareas].map((field) => {
+        const title = field.closest("section").querySelector("h2").innerText;
+        return "## " + title + "\n" + (field.value || "(sem notas)") + "\n";
+      }).join("\n");
+      const blob = new Blob([notes], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "notas-sao-sebastiao-da-serra.txt";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+
+    document.getElementById("clearNotes").addEventListener("click", () => {
+      const ok = confirm("Limpar todas as notas salvas neste navegador?");
+      if (!ok) return;
+      textareas.forEach((field) => {
+        localStorage.removeItem(storagePrefix + field.dataset.save);
+        field.value = "";
+      });
+    });
+  </script>
+</body>
+</html>
